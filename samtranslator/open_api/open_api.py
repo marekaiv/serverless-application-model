@@ -33,7 +33,7 @@ class OpenApiEditor(object):
     _ALL_HTTP_METHODS = ["OPTIONS", "GET", "HEAD", "POST", "PUT", "DELETE", "PATCH"]
     _DEFAULT_PATH = "$default"
 
-    def __init__(self, doc):
+    def __init__(self, doc, read_only=False):
         """
         Initialize the class with a swagger dictionary. This class creates a copy of the Swagger and performs all
         modifications on this copy.
@@ -47,7 +47,7 @@ class OpenApiEditor(object):
                 "Invalid values or missing keys for 'openapi' or 'paths' in 'DefinitionBody'."
             )
 
-        self._doc = copy.deepcopy(doc)
+        self._doc = doc if read_only else copy.deepcopy(doc)
         self.paths = self._doc["paths"]
         self.security_schemes = self._doc.get("components", Py27Dict()).get("securitySchemes", Py27Dict())
         self.definitions = self._doc.get("definitions", Py27Dict())

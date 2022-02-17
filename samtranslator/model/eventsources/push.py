@@ -1110,7 +1110,7 @@ class HttpApi(PushEventSource):
         editor = None
         if resources_to_link["explicit_api"].get("DefinitionBody"):
             try:
-                editor = OpenApiEditor(resources_to_link["explicit_api"].get("DefinitionBody"))
+                editor = OpenApiEditor(resources_to_link["explicit_api"].get("DefinitionBody"), read_only=True)
             except ValueError as e:
                 api_logical_id = self.ApiId.get("Ref") if isinstance(self.ApiId, dict) else self.ApiId
                 raise InvalidResourceException(api_logical_id, e)
